@@ -16,8 +16,15 @@ const app = express();
 // Call the connectDb() function from dbConfig.js to establish a connection to the database
 dbConfig.connectDb();
 
+// Import user-related routes from the user.route.js file
+const userRoutes = require('./routes/user.route.js')
+
 // Enable the app to automatically parse incoming JSON request bodies
 app.use(express.json())
+
+// Mount all routes defined in userRoutes under the '/api/auth' path
+// Example: a route defined as '/login' in user.route.js will become '/api/auth/login'
+app.use('/api/auth', userRoutes)
 
 app.get("/",(req,res)=>{
     res.send("Hello from the Server");
