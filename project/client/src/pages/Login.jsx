@@ -1,21 +1,32 @@
 import React from 'react'
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input , message } from "antd";
 import {Link} from "react-router-dom"
-
-
+import { login } from '../calls/authCalls.js';
 
 function Login() {
+
+    const onSubmit = async (values)=>{
+    try {
+     const userData= await login(values)
+     if(userData.success){
+        message.success(userData.message)
+     }else{
+        message.error(userData.message)
+     }
+    } catch (error) {
+        console.log(error.message)
+    }}
 
   return (
     <>
     <header className="App-header">
       <main className="main-area mw-500 text-center px-3">
         <section className="left-section">
-          <h1>Login to BookMyShow</h1>
+          <h1>Login to CinePass</h1>
         </section>
 
         <section className="right-section">
-          <Form layout="vertical">
+          <Form layout="vertical" onFinish={onSubmit}>
     
           <Form.Item
               label="Email"
