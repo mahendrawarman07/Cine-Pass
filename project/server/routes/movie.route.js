@@ -1,5 +1,6 @@
 const express = require('express')
-const Movie = require('../models/movie.model.js')
+const Movie = require('../models/movie.model.js');
+const { addMovie, updateMovie } = require('../controllers/movie.controllers.js');
 
 
 const movieRouter = express.Router(); // Route
@@ -7,30 +8,19 @@ const movieRouter = express.Router(); // Route
 
 // Add a Movie
 
-movieRouter.post('/add-movie' , async(req , res)=>{
-   try {
-     const newMovie = new Movie(req.body)
-     await newMovie.save()
-       res.send({
-            success: true,
-            message: 'New movie has been added!'
-        })
-   } catch (error) {
-         res.send({
-            success: false,
-            message: 'Movie Could not be added'
-        })
-   }
-})
-
+movieRouter.post('/add-movie' ,addMovie )
 
 
 // update movie
 
-movieRouter.put('/update-movie/:id' , async(req , res)=>{
+movieRouter.put('/update-movie/:id' ,updateMovie )
+
+// Delete Movie
+
+movieRouter.delete('/delete-movie/:id' , async(req , res)=>{
     try {
      const movieId = req.params.id
-     const movie = await Movie.findByIdAndUpdate(movieId , req.body,{ new: true, runValidators: true }) // important options
+     const movie = await Movie.findByIdAndDelete(movieId , req.body)
        res.send({
             success: true,
             message: 'The movie has been updated!',
@@ -44,40 +34,6 @@ movieRouter.put('/update-movie/:id' , async(req , res)=>{
     }
 
 })
-
-
-
-
-// Delete Movie
-
-movieRouter.delete('/delete-movie/:id', async (req, res) => {
-  try {
-    const movieId = req.params.id;
-
-    const movie = await Movie.findByIdAndDelete(movieId);
-
-    if (!movie) {
-      return res.status(404).send({
-        success: false,
-        message: 'Movie not found',
-      });
-    }
-
-    res.send({
-      success: true,
-      message: 'The movie has been deleted!',
-      data: movie
-    });
-
-  } catch (error) {
-    res.status(500).send({
-      success: false,
-      message: 'Server Error',
-      error: error.message
-    });
-  }
-});
-
 
 
 // get all Movies
