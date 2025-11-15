@@ -82,8 +82,7 @@ userRouter.post("/login", async (req, res) => {
 
 
 userRouter.get("/current-user",isAuth,  async (req, res) => {
-    console.log(req);
-    const userId = req.userId;
+  const userId = req.userId;
   if (userId === undefined) {
     return res.status(401).json({ message: "Not authorized , no token" });
   }
