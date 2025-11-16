@@ -9,6 +9,7 @@ import { API_BASE_URL } from '../calls/config';
 
 import { Layout, Input, Button, Avatar, Typography, Space } from 'antd';
 import { UserOutlined, LogoutOutlined, SearchOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 // import { getAllMovies } from '../calls/movieCalls';
 // import { useState } from 'react';
 
@@ -81,7 +82,7 @@ function Home() {
         {/* User Info + Logout */}
         <Space>
           <Avatar icon={<UserOutlined />} />
-          <Text>{displayName}</Text>
+          <Link to='/admin'>{displayName}</Link>
           <Button icon={<LogoutOutlined />} onClick={onLogout} type="default">
             Logout
           </Button>
