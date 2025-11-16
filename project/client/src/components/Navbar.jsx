@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
 const { Header } = Layout;
 const { Text } = Typography;
 
-function Home() {
+function Navbar() {
 
   const { userData } = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -96,4 +96,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Navbar;
