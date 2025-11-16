@@ -5,12 +5,14 @@ import Register from './pages/Register'
 import {BrowserRouter , Routes , Route} from "react-router-dom"
 import ProtectedRoute from './components/ProtectedRoute'
 import PublicRoute from './components/PublicRoute'
+import AuthProvider from './components/AuthProvider'
 
 function App() {
 
   return (
     <>
     <BrowserRouter>
+    <AuthProvider>
        <Routes>
          {/* <Route path='/home' element={<Home/>}/>
          <Route path='/login' element={<Login/>}/>
@@ -20,6 +22,7 @@ function App() {
          <Route path='/login' element={<PublicRoute><Login/></PublicRoute>}/>
          <Route path='/register' element={<PublicRoute><Register/></PublicRoute>}/>
        </Routes>
+      </AuthProvider>
     </BrowserRouter>
     
     </>

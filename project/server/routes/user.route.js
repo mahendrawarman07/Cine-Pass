@@ -69,6 +69,11 @@ userRouter.post("/login", async (req, res) => {
           httpOnly : true,
     })
 
+    //REMOVE PASSWORD BEFORE SENDING
+    delete user._doc.password;
+    // below both will work but for delete, have to use .lean() at last when fetching user from db
+    // delete user.password;
+    // user.password = undefined;
 
     res.send({
       success: true,
@@ -92,6 +97,27 @@ userRouter.get("/current-user",isAuth,  async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: "Server error" });
   } 
+});
+
+
+// Logout Api - Clear cookie
+userRouter.post("/logout", (req, res) => {
+  try {
+    // Clear the JWT cookie
+    res.clearCookie('jwtToken', {
+      httpOnly: true,
+    });
+
+    res.send({
+      success: true,
+      message: "Logged out successfully!"
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      message: "Error logging out" 
+    });
+  }
 });
 
 module.exports = userRouter;
