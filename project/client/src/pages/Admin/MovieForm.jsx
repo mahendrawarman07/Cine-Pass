@@ -1,17 +1,32 @@
 import React from 'react'
-import { Modal , Form , Row, Col , Input, Select , Button} from 'antd'
+import { Modal , Form , Row, Col , Input, Select , Button, message} from 'antd'
 import TextArea from 'antd/es/input/TextArea';
+import { addMovie } from '../../calls/movieCalls.js';
 
 function MovieForm({isModalOpen , setIsModalOpen}) {
+  const [form] = Form.useForm(); 
 
+  const onFinish = async(values)=>{
+       try {
+         const respone = await addMovie(values)
+         console.log(respone)
+         if(respone.success){
+          message.success(respone.message)
+         }else{
+          message.error(respone.message)
+         }
+       } catch (error) {
+          console.log(error)
+       }
+  }
 
   const handleCancel =()=>{
     setIsModalOpen(false)
   }
 
   return (
-    <Modal open={isModalOpen} width={800} onCancel={handleCancel}  >
-      <Form layout='vertical' style={{width: "100%"}} >
+    <Modal open={isModalOpen} width={800} onCancel={handleCancel}  onOk={() => form.submit()} >
+      <Form form={form} layout='vertical' style={{width: "100%"}} onFinish={onFinish} >
           <Row gutter={{
             xs: 6,
             sm: 10,
@@ -44,6 +59,7 @@ function MovieForm({isModalOpen , setIsModalOpen}) {
                 <Form.Item  label="Select Movie Lanuage" htmlFor='language' name="language" className='d-block' rules={[{required: true, message: "Movie language  is required!"}]}>
                 <Select id="language" defaultValue="Select Language" style={{ width: "100%", height: "45px" }}  options={[
                   { value: 'English', label: 'English' },
+                  { value: 'Tamil', label: 'Tamil'},
                   { value: 'Hindi', label: 'Hindi' },
                   { value: 'Punjabi', label: 'Punjabi' },
                   { value: 'Telugu', label: 'Telugu'},
@@ -81,14 +97,17 @@ function MovieForm({isModalOpen , setIsModalOpen}) {
                     </Form.Item>
                   </Col>
                   <Col span={16}>
-                    <Form.Item  label="Poster  URL" htmlFor='poster' name="poster" className='d-block' rules={[{required: true, message: "Movie Poster  is required!"}]}>
-                    <Input id="poster" type="text" placeholder='Enter the poster URL'></Input>
+                    <Form.Item  label="posterPath" htmlFor='posterPath' name="posterPath" className='d-block' rules={[{required: true, message: "Movie Poster  is required!"}]}>
+                    <Input id="posterPath" type="text" placeholder='Enter the poster URL'></Input>
                   </Form.Item>
                   </Col>
               </Row>              
             </Col>            
           </Row>          
-         
+          <Form.Item>
+              <Button block type="primary" htmlType='submit' style={{fontSize: "1rem", fontWeight: "600"}}>Submit the Data</Button>
+              <Button className='mt-3' block >Cancel</Button>
+          </Form.Item>
       </Form> 
     </Modal>
   )
