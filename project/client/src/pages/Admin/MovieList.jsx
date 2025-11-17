@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getAllMovies } from "../../calls/movieCalls";
-import {Table} from "antd"
+import {Table , Button} from "antd"
 import moment from 'moment'
+import MovieForm from "./MovieForm";
 
 function MovieList() {
   const [movies, setMovies] = useState([]);
+  const [isModalOpen , setIsModalOpen]= useState(false)
 
   // getting all the Movies
 
@@ -27,9 +29,8 @@ function MovieList() {
   const tableHeadings=[
     {
        title:'Poster',
-       dataIndex:'posterPath',
+       dataIndex:'poster',
        render:(text , data)=>{
-        //    return data.title
          return (<img width='100'  height='auto' src={data.posterPath}/>)
        }
 
@@ -83,8 +84,16 @@ function MovieList() {
   
 
   return (
-    <div>
+    <div >
+        <div className="d-flex justify-content-end">
+         <Button onClick={()=>{
+            setIsModalOpen(true)
+         }}>Add Movie</Button>
+        </div>
+
+         
         <Table dataSource={movies} columns={tableHeadings}/>
+        {isModalOpen && <MovieForm  isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>}
     </div>
   );
 }
