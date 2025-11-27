@@ -49,15 +49,21 @@ const TheatreListPartner = () => {
   };
 
 
-   useEffect(() => {
-      (async () => {
-        const user = await getCurrentUser();
-        dispatch(setUserData(user || null));
-        if (user && user._id) {
-          getData(user._id);
+//    useEffect(() => {
+//       (async () => {
+//         const user = await getCurrentUser();
+//         dispatch(setUserData(user || null));
+//         if (user && user._id) {
+//           getData(user._id);
+//         }
+//       })();
+//     }, []);
+
+        useEffect(() => {
+        if (userData?._id) {
+            getData();  // userData already available from Redux
         }
-      })();
-    }, []);
+        }, [userData]);  // Re-fetch if userData changes
 
   const columns = [
     {
