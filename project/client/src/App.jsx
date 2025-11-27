@@ -7,6 +7,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import PublicRoute from './components/PublicRoute'
 import AuthProvider from './components/AuthProvider'
 import Admin from './pages/Admin'
+import Partner from './pages/Partner'
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
          <Route path='/login' element={<PublicRoute><Login/></PublicRoute>}/>
          <Route path='/register' element={<PublicRoute><Register/></PublicRoute>}/>
          <Route path='/admin' element={<Admin/>}></Route>
+         <Route path='/partner' element={<Partner/>}></Route>
        </Routes>
       </AuthProvider>
     </BrowserRouter>
