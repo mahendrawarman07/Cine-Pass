@@ -7,6 +7,7 @@ import TheatreForm from "./TheatreForm";
 import { getAllTheatres } from "../../calls/theatreCalls.js";
 import { setUserData } from "../../redux/userSlice";
 import { getCurrentUser } from "../../calls/authCalls";
+import ShowModal from "./ShowModal";
 
 
 
@@ -124,7 +125,7 @@ const TheatreListPartner = () => {
               <Button
                 onClick={() => {
                   setIsShowModalOpen(true);
-                  setSelectedTheatre(data);
+                //   setSelectedTheatre(data);
                 }}
               >
                 + Shows
@@ -159,6 +160,12 @@ const TheatreListPartner = () => {
           getData={getData}
         />
       )}
+
+
+     {
+      isShowModalOpen && <ShowModal isShowModalOpen={isShowModalOpen} setIsShowModalOpen={setIsShowModalOpen} />
+     }
+
     </>
   );
 };
