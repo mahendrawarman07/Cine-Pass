@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons";
 import { getAllMovies } from "../../calls/movieCalls";
 import { addShow, getShows } from "../../calls/showCalls";
+import moment from "moment";
 
 
 
@@ -77,6 +78,9 @@ const ShowModal = ({ isShowModalOpen, setIsShowModalOpen , selectedTheatre }) =>
     {
       title: "Show Date",
       dataIndex: "date",
+      render: (text, data) => {
+        return moment(data.date).format("DD-MM-YYYY");
+      },
     },
     {
       title: "Show Time",
