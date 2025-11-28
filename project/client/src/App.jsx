@@ -8,6 +8,7 @@ import PublicRoute from './components/PublicRoute'
 import AuthProvider from './components/AuthProvider'
 import Admin from './pages/Admin'
 import Partner from './pages/Partner'
+import SingleMovie from './pages/SingleMovie'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
          <Route path='/register' element={<PublicRoute><Register/></PublicRoute>}/>
          <Route path='/admin' element={<Admin/>}></Route>
          <Route path='/partner' element={<Partner/>}></Route>
+         <Route path='/singleMovie/:id' element={<SingleMovie/>}></Route>
        </Routes>
       </AuthProvider>
     </BrowserRouter>
