@@ -32,14 +32,15 @@ const ShowModal = ({ isShowModalOpen, setIsShowModalOpen , selectedTheatre }) =>
             message.error(movieResponse.error);
         }
 
-       const allShowsResponse =  await getShows()
-       console.log(allShowsResponse.data)
-        setShows(allShowsResponse.data)
+       const allShowsResponse =  await getShows({theatreId : selectedTheatre._id})
+     
        if(allShowsResponse.success){
+        console.log(allShowsResponse.data)
+        setShows(allShowsResponse.data)
          console.log(allShowsResponse)
        }
        else{
-        console.log(all)
+        message.error(allShowsResponse.message);
        }
         
     } catch (error) {
@@ -93,7 +94,6 @@ const ShowModal = ({ isShowModalOpen, setIsShowModalOpen , selectedTheatre }) =>
       title: "Theatre",
       dataIndex: "movie",
       render : (text , data)=>{
-        console.log(data);
         return data.theatre.name
       }
 
