@@ -67,6 +67,7 @@ userRouter.post("/login", async (req, res) => {
 
     res.cookie('jwtToken' , token , {
           httpOnly : true,
+          expires: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000)  // 10 days
     })
 
     //REMOVE PASSWORD BEFORE SENDING
