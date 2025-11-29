@@ -10,6 +10,7 @@ import { API_BASE_URL } from '../calls/config';
 import { Layout, Input, Button, Avatar, Typography, Space } from 'antd';
 import { UserOutlined, LogoutOutlined, SearchOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import './Navbar.css';
 // import { getAllMovies } from '../calls/movieCalls';
 // import { useState } from 'react';
 
@@ -64,34 +65,44 @@ function Navbar() {
 
   return (
     <Layout>
-      <Header style={{ background: "rgb(235, 78, 98)", display: "flex", alignItems: "center", padding: "0 20px" }}>
-        
-        {/* Logo / Brand */}
-        <Text strong style={{ fontSize: 18 }}>MyApp</Text>
+      <Header className="navbar-header">
+        <div className="navbar-content">
+          <Link 
+            to={userData?.role === 'partner' ? "/partner" : userData?.role === 'admin' ? '/admin' : '/home'} 
+            className="navbar-brand"
+          >
+            <Text strong className="brand-text">MovieHub</Text>
+          </Link>
 
-        {/* Search Bar */}
-        <div style={{ flex: 1, display: "flex", justifyContent: "center", padding: "0 20px" }}>
-          <Input
-            placeholder="Search..."
-            onPressEnter={(e) => onSearch(e.target.value)}
-            style={{ maxWidth: 400 }}
-            prefix={<SearchOutlined />}
-          />
+          <div className="navbar-search">
+            <Input
+              placeholder="Search movies..."
+              onPressEnter={(e) => onSearch(e.target.value)}
+              className="search-input"
+              prefix={<SearchOutlined />}
+            />
+          </div>
+
+          <div className="navbar-actions">
+            {userData?.role === 'user' && (
+              <Link to="/my-bookings">
+                <Button type="link" className="nav-link">My Bookings</Button>
+              </Link>
+            )}
+            <div className="user-info">
+              <Avatar icon={<UserOutlined />} className="user-avatar" />
+              <Text className="user-name">{displayName}</Text>
+            </div>
+            <Button 
+              icon={<LogoutOutlined />} 
+              onClick={onLogout} 
+              className="logout-button"
+            >
+              Logout
+            </Button>
+          </div>
         </div>
-
-        {/* User Info + Logout */}
-        <Space>
-          <Avatar icon={<UserOutlined />} />
-           <Link to={userData?.role=='partner'? "/partner" : '/admin'}>{displayName}</Link>
-          <Button icon={<LogoutOutlined />} onClick={onLogout} type="default">
-            Logout
-          </Button>
-        </Space>
       </Header>
-
-      <div style={{ padding: 20 }}>
-        {/* Page content */}
-      </div>
     </Layout>
   );
 }
