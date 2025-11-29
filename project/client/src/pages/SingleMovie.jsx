@@ -47,7 +47,6 @@ export default function SingleMovie() {
   const getAllShowsWithTheatres = async () => {
     try {
       const res = await getAllTheatresAndShows({ movie: id, date });
-      console.log(res.shows);
       setTheatres(res.shows);
     } catch (error) {
       console.log(error);
@@ -157,9 +156,9 @@ export default function SingleMovie() {
                         .map((singleShow) => {
                           return (
                             <li
-                              key={singleShow._id}
+                              // key={singleShow._id}
                               onClick={() =>
-                                navigate(`/book-show/${singleShow._id}`)
+                                navigate(`/bookshow/${singleShow._id}`)
                               }
                             >
                               {moment(singleShow.time, "HH:mm").format(

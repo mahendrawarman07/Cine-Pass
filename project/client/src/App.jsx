@@ -9,6 +9,7 @@ import AuthProvider from './components/AuthProvider'
 import Admin from './pages/Admin'
 import Partner from './pages/Partner'
 import SingleMovie from './pages/SingleMovie'
+import BookShow from './pages/BookShow'
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
          <Route path='/admin' element={<Admin/>}></Route>
          <Route path='/partner' element={<Partner/>}></Route>
          <Route path='/singleMovie/:id' element={<SingleMovie/>}></Route>
+         <Route path='/bookshow/:id' element={<BookShow/>}></Route>
        </Routes>
       </AuthProvider>
     </BrowserRouter>
