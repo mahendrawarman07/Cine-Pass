@@ -1,5 +1,5 @@
 import './App.css'
-import Landing from './pages/Landing'
+import Landing from './pages/Landing'  // ✅ Correct filename
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -22,10 +22,6 @@ function App() {
     <BrowserRouter>
     <AuthProvider>
        <Routes>
-         {/* <Route path='/home' element={<Home/>}/>
-         <Route path='/login' element={<Login/>}/>
-         <Route path='/register' element={<Register/>}/> */}
-         
          {/* Landing Page */}
          <Route path='/' element={<Landing/>}/>
          
@@ -33,11 +29,13 @@ function App() {
          <Route path='/login' element={<PublicRoute><Login/></PublicRoute>}/>
          <Route path='/register' element={<PublicRoute><Register/></PublicRoute>}/>
          
+         {/* CRITICAL FIX: Make payment-success PUBLIC - Remove ProtectedRoute wrapper */}
+         <Route path='/payment-success' element={<PaymentSuccess/>}/>
+         
          {/* Protected Routes - User Only */}
          <Route path='/home' element={<ProtectedRoute><RoleBasedRoute allowedRoles={['user']}><Home/></RoleBasedRoute></ProtectedRoute>}/>
          <Route path='/singleMovie/:id/' element={<ProtectedRoute><RoleBasedRoute allowedRoles={['user']}><SingleMovie/></RoleBasedRoute></ProtectedRoute>}/>
          <Route path='/bookshow/:id' element={<ProtectedRoute><RoleBasedRoute allowedRoles={['user']}><BookShow/></RoleBasedRoute></ProtectedRoute>}/>
-         <Route path='/payment-success' element={<ProtectedRoute><RoleBasedRoute allowedRoles={['user']}><PaymentSuccess/></RoleBasedRoute></ProtectedRoute>}/>
          <Route path='/my-bookings' element={<ProtectedRoute><RoleBasedRoute allowedRoles={['user']}><MyBookings/></RoleBasedRoute></ProtectedRoute>}/>
          
          {/* Protected Routes - Admin Only */}
