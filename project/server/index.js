@@ -7,7 +7,7 @@ const rateLimit = require('express-rate-limit')
 // Import the database configuration file that contains connection logic for the database
 const dbConfig = require('./dbConfig.js')
 
-const mongoSanitize = require('express-mongo-sanitize')
+// const mongoSanitize = require('express-mongo-sanitize')
 
 // Import the dotenv package to load environment variables from a .env file
 const dotEnv = require('dotenv')
@@ -48,7 +48,7 @@ app.use(cors({
 app.use(cookieParser())
 
 app.use(limiter)
-app.use(mongoSanitize());
+// app.use(mongoSanitize());
 
 // Mount all routes defined in userRoutes under the '/api/auth' path
 // Example: a route defined as '/login' in user.route.js will become '/api/auth/login'
