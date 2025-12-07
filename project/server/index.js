@@ -41,7 +41,7 @@ const limiter = rateLimit({
 app.use(express.json())
 
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
     credentials : true
 }))
 
@@ -58,8 +58,11 @@ app.use('/api/theatre',theatreRoutes)
 app.use('/api/shows' , showRoutes)
 app.use('/api/booking', bookingRoutes)
 
+
+const PORT = process.env.PORT || 8000;
 // Start the server on port 8000 and run the callback function once the server starts successfully
-app.listen(8000, () => {
+app.listen(PORT, () => {
     // Print a message to the console indicating that the server is running
     console.log('Server Started')
+    console.log(`Server Started on port ${PORT}`)
 })
