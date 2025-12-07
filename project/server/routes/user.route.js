@@ -84,7 +84,7 @@ userRouter.post("/login", async (req, res) => {
     res.cookie('jwtToken', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      sameSite: 'none',
     });
 
     res.send({
@@ -136,7 +136,7 @@ userRouter.post("/logout", isAuth, async (req, res) => {
     res.clearCookie('jwtToken', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      sameSite: 'none',
     });
     res.send({
       success: true,
